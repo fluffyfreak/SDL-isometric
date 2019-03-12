@@ -151,23 +151,23 @@ void CGameApp::handleEvent(SDL_Event& EventIn)
 		}
 	}
 
-	//if (EventIn.type == sf::Event::MouseButtonPressed)
-	//{
-	//	bMouseBtnDown[EventIn.mouseButton.button] = true;
-	//	bMouseDown = true;
-	//	mouseX = EventIn.mouseButton.x;
-	//	mouseY = EventIn.mouseButton.y;
-	//}
-	//else if (EventIn.type == sf::Event::MouseButtonReleased)
-	//{
-	//	bMouseBtnDown[EventIn.mouseButton.button] = false;
-	//	bMouseDown = false;
-	//}
-	//else if (EventIn.type == sf::Event::MouseMoved)
-	//{
-	//	mouseX = EventIn.mouseMove.x;
-	//	mouseY = EventIn.mouseMove.y;
-	//}
+	if (EventIn.type == SDL_MOUSEBUTTONDOWN)
+	{
+		bMouseBtnDown[EventIn.button.button] = true;
+		bMouseDown = true;
+		mouseX = EventIn.button.x;
+		mouseY = EventIn.button.y;
+	}
+	else if (EventIn.type == SDL_MOUSEBUTTONUP)
+	{
+		bMouseBtnDown[EventIn.button.button] = false;
+		bMouseDown = false;
+	}
+	else if (EventIn.type == SDL_MOUSEMOTION)
+	{
+		mouseX = EventIn.motion.x;
+		mouseY = EventIn.motion.y;
+	}
 }
 
 void CGameApp::update()
