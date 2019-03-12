@@ -15,6 +15,7 @@
 // forward declarations
 class CSpriteSheet;
 struct SDL_Window;
+struct SDL_Renderer;
 
 struct TMapTile
 {
@@ -50,11 +51,11 @@ public:
 		unsigned char walkableType;
 	};
 
-	TiledMap(const char* pathname, const char* filename, const int screenWide, const int screenHigh);
+	TiledMap(SDL_Renderer *pRenderer, const char* pathname, const char* filename, const int screenWide, const int screenHigh);
 	~TiledMap();
 
 	void Update(const bool mouseDown, const int xx, const int yy);
-	void Render(SDL_Window* renderWindow, const int iSingleLayer = -1);
+	void Render(SDL_Window* renderWindow, SDL_Renderer* renderer, const int iSingleLayer = -1);
 
 	int getNumLayers() const { return numLayers; }
 	bool doesMapHaveErrors() const { return mapHadErrors; }
@@ -123,7 +124,7 @@ private:
 
 	int FindTileset(int gid);
 
-	void RenderMap(SDL_Window* renderWindow, const int drawX, const int drawY, const int iSingleLayer);
+	void RenderMap(SDL_Window* renderWindow, SDL_Renderer* renderer, const int drawX, const int drawY, const int iSingleLayer);
 };
 
 

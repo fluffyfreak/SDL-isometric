@@ -18,6 +18,7 @@
 class CGameApp;
 class TiledMap;
 struct SDL_Window;
+struct SDL_Renderer;
 typedef std::vector<std::string> VecOfStr;
 
 ////////////////////////////////////////////////////////////
@@ -27,6 +28,7 @@ class CGameApp
 private:
 	TiledMap*				mTiledMap;
 	SDL_Window*				mRenderWindow;
+	SDL_Renderer*			mRenderer;
 	VecOfStr				mMapFilenames;
 
 	size_t miCurrentMap;
@@ -40,7 +42,7 @@ private:
 	void changeToNewMap();
 
 public:
-	CGameApp(SDL_Window *);
+	CGameApp(SDL_Window *, SDL_Renderer *);
 	~CGameApp();
 
 	void handleEvent(SDL_Event &);

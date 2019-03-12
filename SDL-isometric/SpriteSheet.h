@@ -34,7 +34,7 @@ class CSpriteSheet
 {
 public:
 	// public ctor & dtor
-	CSpriteSheet(char* filename, const unsigned int tile_width, const unsigned int tile_height);
+	CSpriteSheet(SDL_Renderer *pRenderer, const char* filename, const unsigned int tile_width, const unsigned int tile_height);
 	~CSpriteSheet(void);
 
 	unsigned int spriteWidth() const	{ return m_tile_width; }
@@ -43,6 +43,7 @@ public:
 	unsigned int numTilesHigh() const	{ return m_num_high; }
 
 	CSprite& getSprite( const unsigned int idx );
+	SDL_Texture* getSpriteTexture() const { return m_spriteTexture; }
 
 private:
 	// private copy and default ctor

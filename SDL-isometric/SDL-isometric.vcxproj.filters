@@ -19,6 +19,9 @@
     <Filter Include="zlib">
       <UniqueIdentifier>{04eb6754-98e2-4045-aefe-7e5c91fde6c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tiled">
+      <UniqueIdentifier>{3a871453-d00d-43bf-8c76-ae2df09d564a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="alphanum.hpp">
@@ -74,6 +77,42 @@
     </ClInclude>
     <ClInclude Include="zlib\zutil.h">
       <Filter>zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\base64.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\Tmx.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxImage.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxLayer.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxMap.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxMapTile.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxObject.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxObjectGroup.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxPropertySet.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxTile.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxTileset.h">
+      <Filter>tiled</Filter>
+    </ClInclude>
+    <ClInclude Include="tiled\TmxUtil.h">
+      <Filter>tiled</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +175,36 @@
     </ClCompile>
     <ClCompile Include="zlib\crc32.c">
       <Filter>zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\base64.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxImage.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxLayer.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxMap.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxObject.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxObjectGroup.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxPropertySet.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxTile.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxTileset.cpp">
+      <Filter>tiled</Filter>
+    </ClCompile>
+    <ClCompile Include="tiled\TmxUtil.cpp">
+      <Filter>tiled</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

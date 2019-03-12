@@ -164,9 +164,6 @@ namespace AStar
 
 #include "MacrosAndWrappers.h"
 
-extern unsigned int numDrawn;
-extern unsigned int numConsidered;
-
 TileImage::TileImage() : pSpriteSheet(nullptr)
 {
 }
@@ -178,7 +175,7 @@ TileImage::~TileImage()
 	}
 }
 
-TiledMap::TiledMap(const char* pathname, const char* filename, const int screenWide, const int screenHigh)
+TiledMap::TiledMap(SDL_Renderer *pRenderer, const char* pathname, const char* filename, const int screenWide, const int screenHigh)
 	: numTilesets(0),
 	numLayers(0),
 	screenWidth(screenWide),
@@ -293,7 +290,7 @@ TiledMap::TiledMap(const char* pathname, const char* filename, const int screenW
 	//		Load in the images
 	for (size_t i = 0; i < _imageList.size(); i++)
 	{
-		_imageList[i].pSpriteSheet = new CSpriteSheet(_imageList[i].imageName, 64, 48);
+		_imageList[i].pSpriteSheet = new CSpriteSheet(pRenderer, _imageList[i].imageName, 64, 48);
 	}
 
 	mapHadErrors = (numLayers != _mapLayer.size());
@@ -508,14 +505,12 @@ void TiledMap::Update(const bool mouseDown, const int xx, const int yy)
 	pointerDown = isDown;
 }
 
-void TiledMap::Render(SDL_Window* renderWindow, const int iSingleLayer/*=-1*/)
+void TiledMap::Render(SDL_Window* renderWindow, SDL_Renderer* renderer, const int iSingleLayer/*=-1*/)
 {
-	numDrawn = 0;
-	numConsidered = 0;
-	RenderMap(renderWindow, mapDrawX, mapDrawY, iSingleLayer);
+	RenderMap(renderWindow, renderer, mapDrawX, mapDrawY, iSingleLayer);
 }
 
-void TiledMap::RenderMap(SDL_Window* renderWindow, const int drawX, const int drawY, const int iSingleLayer)
+void TiledMap::RenderMap(SDL_Window* renderWindow, SDL_Renderer* renderer, const int drawX, const int drawY, const int iSingleLayer)
 {
 	// find the top left, i.e. startX & startY
 
@@ -548,26 +543,18 @@ void TiledMap::RenderMap(SDL_Window* renderWindow, const int drawX, const int dr
 
 				for (int x = 0; x < mapWidth; x++)
 				{
-					++numConsidered;
 					TMapTile* tile = &thisLayer[x][y];
 					if (tile->drawn && (ytile >= -tileHeight) && (xtile >= -tileWidth))
 					{
 						TileImage* tileImg = &_imageList[0];
 
 						CSprite& sprite = tileImg->pSpriteSheet->getSprite(tile->imageID);
-						//sprite.setPosition(xtile, ytile);
-
-						//renderWindow.draw(sprite);
-						//renderWindow->
-						//SDL_RenderCopy()
-						//SDL_BlitSurface()
-
-						sprite.GetImageSheet()
+						
 						//Set rendering space and render to screen
-						SDL_Rect renderQuad = { xtile, ytile, mWidth, mHeight };
-						SDL_RenderCopy(gRenderer, mTexture, NULL, &renderQuad);
-
-						++numDrawn;
+						auto tl = sprite.GetTopLeft();
+						SDL_Rect srcQuad = { tl.x, tl.y, tileWidth, tileHeight };
+						SDL_Rect renderQuad = { xtile, ytile, tileWidth, tileHeight };
+						SDL_RenderCopy(renderer, tileImg->pSpriteSheet->getSpriteTexture(), &srcQuad, &renderQuad);
 					}
 
 					ytile += halftileH;

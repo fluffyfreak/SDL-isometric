@@ -3,15 +3,20 @@
 #include "SDL_image.h"
 #include "MacrosAndWrappers.h"
 
-CSpriteSheet::CSpriteSheet(char* filename, const unsigned int tile_width, const unsigned int tile_height) :
+CSpriteSheet::CSpriteSheet(SDL_Renderer *pRenderer, const char* filename, const unsigned int tile_width, const unsigned int tile_height) :
 	m_spritesheet(NULL),
 	m_tile_width(tile_width),
 	m_tile_height(tile_height)
 {
 	m_spritesheet = IMG_Load(filename);
+	const char *errorMsg = IMG_GetError();
+	if (errorMsg != nullptr)
+	{
+		printf("%s\n", errorMsg);
+	}
 	AA_ASSERT(m_spritesheet != nullptr);
 	SDL_SetColorKey(m_spritesheet, SDL_TRUE, SDL_MapRGB(m_spritesheet->format, 0xFF, 0xFF, 0xFF));
-	m_spriteTexture = nullptr;// SDL_CreateTextureFromSurface(gRenderer, m_spritesheet);
+	m_spriteTexture = SDL_CreateTextureFromSurface(pRenderer, m_spritesheet);
 
 	// TODO
 	// check the tile dimensions fit within

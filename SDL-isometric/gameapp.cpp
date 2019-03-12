@@ -75,9 +75,10 @@ static const char sMapsDir[] = { "./data/maps/" };
 
 ////////////////////////////////////////////////////////////
 //
-CGameApp::CGameApp(SDL_Window *window) :
+CGameApp::CGameApp(SDL_Window *window, SDL_Renderer *renderer) :
 	mTiledMap(nullptr),
 	mRenderWindow(window),
+	mRenderer(renderer),
 	miCurrentMap(0),
 	miSingleLayerN(-1),
 	mouseX(0),
@@ -93,7 +94,7 @@ CGameApp::CGameApp(SDL_Window *window) :
 		int width, height;
 		SDL_GetWindowSize(mRenderWindow, &width, &height);
 		std::string mapName = mMapFilenames[iCurrentMap];
-		TiledMap *pMap = new TiledMap(sMapsDir, mapName.c_str(), width, height);
+		TiledMap *pMap = new TiledMap(renderer, sMapsDir, mapName.c_str(), width, height);
 		if (!pMap->doesMapHaveErrors() && pMap->getNumLayers() > 0) {
 			mTiledMap = pMap;
 		}
@@ -181,7 +182,7 @@ void CGameApp::render()
 {
 	//
 	if (mTiledMap) {
-		mTiledMap->Render(mRenderWindow, miSingleLayerN);
+		mTiledMap->Render(mRenderWindow, mRenderer, miSingleLayerN);
 	}
 }
 
@@ -196,7 +197,7 @@ void CGameApp::changeToNewMap()
 		int width, height;
 		SDL_GetWindowSize(mRenderWindow, &width, &height);
 		std::string mapName = mMapFilenames[miCurrentMap];
-		TiledMap *pMap = new TiledMap(sMapsDir, mapName.c_str(), width, height);
+		TiledMap *pMap = new TiledMap(mRenderer, sMapsDir, mapName.c_str(), width, height);
 		if (!pMap->doesMapHaveErrors() && pMap->getNumLayers() > 0) {
 			delete mTiledMap;
 			mTiledMap = nullptr;
