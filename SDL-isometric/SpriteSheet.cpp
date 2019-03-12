@@ -19,13 +19,17 @@ CSpriteSheet::CSpriteSheet(SDL_Renderer *pRenderer, const char* filename, const 
 
 	// set the color key, this is ... supposed to work
 	//SDL_SetColorKey(m_spritesheet, SDL_TRUE, SDL_MapRGBA(m_spritesheet->format, 0xFF, 0xFF, 0xFF, 0xFF));
-	SDL_SetColorKey(m_spritesheet, SDL_TRUE, SDL_MapRGB(m_spritesheet->format, 0xFF, 0xFF, 0xFF));
+	//SDL_SetColorKey(m_spritesheet, SDL_TRUE, SDL_MapRGB(m_spritesheet->format, 0xFF, 0xFF, 0xFF));
 
-	//if(m_spritesheet->format->format != SDL_PIXELFORMAT_RGBA32)
-	//	SDL_ConvertSurfaceFormat(m_spritesheet, SDL_PIXELFORMAT_RGBA32, 0);
+	if(m_spritesheet->format->format != SDL_PIXELFORMAT_RGBA32)
+		SDL_ConvertSurfaceFormat(m_spritesheet, SDL_PIXELFORMAT_RGBA32, 0);
 
 	// so that when we build the texture for it things should be transparent
 	m_spriteTexture = SDL_CreateTextureFromSurface(pRenderer, m_spritesheet);
+
+	// set the blend mode
+	const int res = SDL_SetTextureBlendMode(m_spriteTexture, SDL_BLENDMODE_BLEND);
+	AA_ASSERT(res == 0);
 
 	// TODO
 	// check the tile dimensions fit within
