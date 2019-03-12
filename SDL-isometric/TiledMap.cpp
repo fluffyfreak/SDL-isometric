@@ -532,7 +532,7 @@ void TiledMap::RenderMap(SDL_Window* renderWindow, SDL_Renderer* renderer, const
 		if (thisLayer != NULL)
 		{
 			const int ylayeroffset = lyr * halftileH;
-			int xrow = -drawX - halftileW; // -drawX + startOffsetX - halftileW;
+			int xrow = -drawX - halftileW;
 			int yrow = -drawY - ylayeroffset;
 
 			// from 0 to mapHeight???
@@ -555,6 +555,7 @@ void TiledMap::RenderMap(SDL_Window* renderWindow, SDL_Renderer* renderer, const
 						SDL_Rect srcQuad = { tl.x, tl.y, tileWidth, tileHeight };
 						SDL_Rect renderQuad = { xtile, ytile, tileWidth, tileHeight };
 						SDL_RenderCopy(renderer, tileImg->pSpriteSheet->getSpriteTexture(), &srcQuad, &renderQuad);
+						//SDL_RenderCopyEx(renderer, tileImg->pSpriteSheet->getSpriteTexture(), &srcQuad, &renderQuad, 0.0, NULL, SDL_FLIP_NONE);
 					}
 
 					ytile += halftileH;

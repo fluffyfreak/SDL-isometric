@@ -9,13 +9,22 @@ CSpriteSheet::CSpriteSheet(SDL_Renderer *pRenderer, const char* filename, const 
 	m_tile_height(tile_height)
 {
 	m_spritesheet = IMG_Load(filename);
+	//IMG_SavePNG(m_spritesheet, "bodger.png");
 	const char *errorMsg = IMG_GetError();
 	if (errorMsg != nullptr)
 	{
 		printf("%s\n", errorMsg);
 	}
 	AA_ASSERT(m_spritesheet != nullptr);
+
+	// set the color key, this is ... supposed to work
+	//SDL_SetColorKey(m_spritesheet, SDL_TRUE, SDL_MapRGBA(m_spritesheet->format, 0xFF, 0xFF, 0xFF, 0xFF));
 	SDL_SetColorKey(m_spritesheet, SDL_TRUE, SDL_MapRGB(m_spritesheet->format, 0xFF, 0xFF, 0xFF));
+
+	//if(m_spritesheet->format->format != SDL_PIXELFORMAT_RGBA32)
+	//	SDL_ConvertSurfaceFormat(m_spritesheet, SDL_PIXELFORMAT_RGBA32, 0);
+
+	// so that when we build the texture for it things should be transparent
 	m_spriteTexture = SDL_CreateTextureFromSurface(pRenderer, m_spritesheet);
 
 	// TODO
